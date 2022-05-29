@@ -31,6 +31,7 @@ PRODUCT_PACKAGES += \
     FontRobotoOverlay \
     FontUrbanistOverlay \
     FontCircularStdOverlay \
+    FontSanFranciscoDisplayProSourceOverlay \
     IconPackCircularAndroidOverlay \
     IconPackCircularLauncherOverlay \
     IconPackCircularSettingsOverlay \
