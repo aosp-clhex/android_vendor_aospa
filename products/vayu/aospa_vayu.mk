@@ -17,26 +17,26 @@
 # Check for target product
 ifeq (aospa_vayu,$(TARGET_PRODUCT))
 
-# Inherit framework first
-$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit_only.mk)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base_telephony.mk)
+# Inherit common products
+$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
-# Inherit from the custom device configuration.
+# Inherit device configurations
 $(call inherit-product, device/xiaomi/vayu/device.mk)
 
- # Inherit from the AOSPA configuration.
+# Inherit common AOSPA configuration
 $(call inherit-product, vendor/aospa/target/product/aospa-target.mk)
 
-# Device identifier
+# Device Identifier
 PRODUCT_NAME := aospa_vayu
+PRODUCT_NAME_FOR_ATTESTATION := vayu
 PRODUCT_DEVICE := vayu
 PRODUCT_BRAND := POCO
-PRODUCT_MODEL := POCO X3 Pro
-PRODUCT_MANUFACTURER := Xiaomi
+PRODUCT_BRAND_FOR_ATTESTATION := POCO
+PRODUCT_MODEL := Poco X3 Pro
+PRODUCT_MODEL_FOR_ATTESTATION := POCO X3 Pro
+PRODUCT_MANUFACTURER := xiaomi
 
 PRODUCT_GMS_CLIENTID_BASE := android-xiaomi
-
-# Boot animation resolution.
-TARGET_BOOT_ANIMATION_RES := 1080
 
 endif
