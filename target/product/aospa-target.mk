@@ -100,6 +100,9 @@ PRODUCT_PACKAGES += \
     android.hidl.base@1.0.vendor \
     android.hidl.manager@1.0.vendor
 
+# Addons
+include vendor/addons/config.mk
+
 # Include fs tools for dedicated recovery and ramdisk partitions.
 PRODUCT_PACKAGES += \
     e2fsck_ramdisk \
