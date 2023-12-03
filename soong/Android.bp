@@ -25,11 +25,73 @@ soong_config_module_type {
     properties: ["cppflags"],
 }
 
+soong_config_module_type {
+    name: "health_charging_control",
+    module_type: "cc_defaults",
+    config_namespace: "aospaGlobalVars",
+    bool_variables: [
+        "target_health_charging_control_supports_toggle",
+        "target_health_charging_control_supports_bypass",
+        "target_health_charging_control_supports_deadline",
+    ],
+    value_variables: [
+        "target_health_charging_control_charging_path",
+        "target_health_charging_control_charging_enabled",
+        "target_health_charging_control_charging_disabled",
+        "target_health_charging_control_deadline_path",
+    ],
+    properties: ["cppflags"],
+}
+
+health_charging_control {
+    name: "health_charging_control_defaults",
+    soong_config_variables: {
+        target_health_charging_control_supports_toggle: {
+            cppflags: ["-DHEALTH_CHARGING_CONTROL_SUPPORTS_TOGGLE"],
+        },
+        target_health_charging_control_supports_bypass: {
+            cppflags: ["-DHEALTH_CHARGING_CONTROL_SUPPORTS_BYPASS"],
+        },
+        target_health_charging_control_supports_deadline: {
+            cppflags: ["-DHEALTH_CHARGING_CONTROL_SUPPORTS_DEADLINE"],
+        },
+        target_health_charging_control_charging_path: {
+            cppflags: ["-DHEALTH_CHARGING_CONTROL_CHARGING_PATH=\"%s\""],
+        },
+        target_health_charging_control_charging_enabled: {
+            cppflags: ["-DHEALTH_CHARGING_CONTROL_CHARGING_ENABLED=\"%s\""],
+        },
+        target_health_charging_control_charging_disabled: {
+            cppflags: ["-DHEALTH_CHARGING_CONTROL_CHARGING_DISABLED=\"%s\""],
+        },
+        target_health_charging_control_deadline_path: {
+            cppflags: ["-DHEALTH_CHARGING_CONTROL_DEADLINE_PATH=\"%s\""],
+        },
+    },
+}
+
 powershare_node {
     name: "powershare_node_defaults",
     soong_config_variables: {
         powershare_node: {
             cppflags: ["-DPOWERSHARE_NODE=\"%s\""],
+        },
+    },
+}
+
+soong_config_module_type {
+    name: "target_camera_package_name",
+    module_type: "cc_defaults",
+    config_namespace: "aospaGlobalVars",
+    value_variables: ["target_camera_package_name"],
+    properties: ["cppflags"],
+}
+
+target_camera_package_name {
+    name: "camera_package_name_defaults",
+    soong_config_variables: {
+        target_camera_package_name: {
+            cppflags: ["-DCAMERA_PACKAGE_NAME=\"%s\""],
         },
     },
 }
@@ -102,55 +164,6 @@ surfaceflinger_udfps_lib {
         target_surfaceflinger_udfps_lib: {
             cppflags: ["-DTARGET_PROVIDES_UDFPS_LIB"],
             whole_static_libs: ["%s"],
-        },
-    },
-}
-
-soong_config_module_type {
-    name: "uses_oplus_camera",
-    module_type: "cc_defaults",
-    config_namespace: "aospaGlobalVars",
-    bool_variables: ["uses_oplus_camera"],
-    properties: ["cppflags"],
-}
-uses_oplus_camera {
-    name: "uses_oplus_camera_defaults",
-    soong_config_variables: {
-        uses_oplus_camera: {
-            cppflags: ["-DUSES_OPLUS_CAMERA"],
-        },
-    },
-}
-
-soong_config_module_type {
-    name: "uses_nothing_camera",
-    module_type: "cc_defaults",
-    config_namespace: "aospaGlobalVars",
-    bool_variables: ["uses_nothing_camera"],
-    properties: ["cppflags"],
-}
-
-uses_nothing_camera {
-    name: "uses_nothing_camera_defaults",
-    soong_config_variables: {
-        uses_nothing_camera: {
-            cppflags: ["-DUSES_NOTHING_CAMERA"],
-        },
-    },
-}
-
-soong_config_module_type {
-    name: "uses_miui_camera",
-    module_type: "cc_defaults",
-    config_namespace: "aospaGlobalVars",
-    bool_variables: ["uses_miui_camera"],
-    properties: ["cppflags"],
-}
-uses_miui_camera {
-    name: "uses_miui_camera_defaults",
-    soong_config_variables: {
-        uses_miui_camera: {
-            cppflags: ["-DUSES_MIUI_CAMERA"],
         },
     },
 }

@@ -12,6 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Enable support for APEX updates
+$(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
+
+# Enable allowlist for some aosp packages that should not be scanned in a "stopped" state
+# Some CTS test case failed after enabling feature config_stopSystemPackagesByDefault
+PRODUCT_PACKAGES += initial-package-stopped-states-aosp.xml
+
 # Abstruct
 PRODUCT_PACKAGES += \
     Abstruct
@@ -37,10 +44,6 @@ $(call inherit-product, vendor/aospa/bootanimation/bootanimation.mk)
 PRODUCT_PACKAGES += \
     GoogleCameraGo
 
-# Charger
-PRODUCT_SYSTEM_EXT_PROPERTIES += \
-    ro.charger.enable_suspend=1
-
 # curl
 PRODUCT_PACKAGES += \
     curl
@@ -64,6 +67,11 @@ PRODUCT_SYSTEM_EXT_PROPERTIES += \
     debug.sf.frame_rate_multiple_threshold=60 \
     ro.launcher.blur.appLaunch=0 \
     ro.sf.use_latest_hwc_vsync_period=0
+
+# EGL - Blobcache configuration
+PRODUCT_SYSTEM_EXT_PROPERTIES += \
+    ro.egl.blobcache.multifile=true \
+    ro.egl.blobcache.multifile_limit=33554432
 
 # Exfat FS
 PRODUCT_PACKAGES += \
@@ -144,7 +152,7 @@ PRODUCT_PACKAGES += \
     ParanoidThemePicker
 
 # Paranoid Hub (OTA)
-ifneq ($(filter RELEASE BETA,$(AOSPA_BUILDTYPE)),)
+ifneq ($(filter STABLE BETA,$(AOSPA_BUILDTYPE)),)
 PRODUCT_PACKAGES += ParanoidHub
 endif
 
@@ -162,7 +170,8 @@ PRODUCT_SYSTEM_EXT_PROPERTIES += \
 # Permissions
 PRODUCT_COPY_FILES += \
     vendor/aospa/target/config/permissions/default_permissions_com.google.android.deskclock.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/default-permissions/default_permissions_com.google.android.deskclock.xml \
-    vendor/aospa/target/config/permissions/privapp-permissions-hotword.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-hotword.xml
+    vendor/aospa/target/config/permissions/privapp-permissions-hotword.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-hotword.xml \
+    vendor/aospa/target/config/permissions/org.lineageos.health.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/org.lineageos.health.xml
 
 # Privapp-permissions
 PRODUCT_SYSTEM_EXT_PROPERTIES += \
